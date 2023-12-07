@@ -36,7 +36,7 @@ jobs:
           python3 setup.py egg_info
 
       - name: Measure unit test energy
-        uses: koenhagen/measure-energy-action@v0.17
+        uses: koenhagen/measure-energy-action@v0.18
         with:
           run: make data_tests
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
