@@ -2,21 +2,17 @@ name: data-tests
 
 on:
   push:
-    branches:
-      - energy
 jobs:
   measure-energy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
+    permissions: write-all
     name: A job to measure energy
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.10'
           architecture: x64
           cache: 'pip'
           cache-dependency-path: 'requirements*'
@@ -40,6 +36,7 @@ jobs:
           python3 setup.py egg_info
 
       - name: Measure unit test energy
-        uses: koenhagen/measure-energy-action@v0.4
+        uses: koenhagen/measure-energy-action@v0.18
         with:
-          what-to-test: make data_tests
+          run: make data_tests
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
